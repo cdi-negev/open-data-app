@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>מועדפים</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content dir="rtl">
+  <ion-note *ngIf="schoolsFavoritesList.length == 0">
+    <h3 text-center>אין מועדפים</h3>
+  </ion-note>
+  <ion-list>
+    <button ion-item
+            detail-none
+            (click)="onSchoolSelect(school)"
+            *ngFor="let school of schoolsFavoritesList">
+      <ion-icon name="arrow-dropleft"
+                item-right></ion-icon>
+      {{school.name}} -
+      <ion-note>{{school.type}}</ion-note>
+    </button>
+  </ion-list>
+</ion-content>

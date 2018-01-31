@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button
+            menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>רשימת מוסדות חינוך</ion-title>
+    <ion-buttons end>
+      <button (click)="onShowFavorites()"
+              ion-button
+              icon-anly>
+        <ion-icon name="star"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding
+             dir="rtl">
+  <ion-searchbar dir="ltr"
+                 animated="true"
+                 placeholder="חיפוש"
+                 cancelButtonText="ביטול"
+                 showCancelButton
+                 color="danger"
+                 (ionClear)="onClear($event)"
+                 (ionCancel)="onCancel($event)"
+                 (ionInput)="filterItems($event)">
+
+  </ion-searchbar>
+
+  <ion-list>
+    <!-- <ion-item *ngFor="let school of schoolsList">
+      {{school.name}} - {{school.type}}
+    </ion-item> -->
+    <button ion-item
+            detail-none
+            (click)="onSchoolSelect(school)"
+            *ngFor="let school of schoolsList">
+      <ion-icon name="arrow-dropleft"
+                item-right></ion-icon>
+      {{school.name}} -
+      <ion-note>{{school.type}}</ion-note>
+    </button>
+  </ion-list>
+</ion-content>

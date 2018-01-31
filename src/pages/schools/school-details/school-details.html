@@ -1,0 +1,54 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>פרטי מוסד</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card text-right>
+    <ion-card-header>
+      <ion-icon [name]="schoolIcon"
+                color="primary"></ion-icon>
+      {{school.name}}
+      <ion-note>
+        {{school.type}}
+      </ion-note>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>כתובת :{{school.address}}</h2>
+      <h2>מגמות לימוד</h2>
+      <ion-list dir="rtl">
+        <ion-item *ngFor="let trend of school.trends">
+          {{trend}}
+        </ion-item>
+      </ion-list>
+      <ion-grid>
+        <ion-row>
+          <ion-col text-left>
+            <button ion-button
+                    *ngIf="schoolFavorit"
+                    (click)="onUnfavorite()"
+                    clear
+                    small
+                    icon-end>
+              הסרה
+              <ion-icon name="star"></ion-icon>
+            </button>
+            <button ion-button
+                    *ngIf="!schoolFavorit"
+                    (click)="onAddToFavorite()"
+                    clear
+                    small
+                    icon-end>
+              הוספה
+              <ion-icon name="star-outline"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

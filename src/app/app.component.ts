@@ -1,13 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { Platform, MenuController, Nav } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import firebase from 'firebase';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ListPage } from '../pages/list/list';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { SchoolsListPage } from './../pages/schools/schools-list/schools-list';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +16,7 @@ export class MyApp {
 
   // make HelloIonicPage the root (or first) page
   rootPage = HelloIonicPage;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(
     public platform: Platform,
@@ -30,8 +29,18 @@ export class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage }
+      { title: 'My First List', component: ListPage },
+      { title: 'מוסדות חינוך', component: SchoolsListPage }
     ];
+
+    // initial firebase
+    firebase.initializeApp({
+      apiKey: "AIzaSyC1Rmd7g80bR6yVpF8bJ1-56aZWbe3U77g",
+      authDomain: "schools-db-31ab9.firebaseapp.com"
+    });
+
+    firebase.auth().signInWithEmailAndPassword('user@test.com', '123456');
+    //firebase.auth().signOut();
   }
 
   initializeApp() {

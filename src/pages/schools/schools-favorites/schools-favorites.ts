@@ -1,4 +1,4 @@
-import { NavController } from 'ionic-angular';
+import { NavController, ViewController, LoadingController } from 'ionic-angular';
 import { SchoolDetailsPage } from './../school-details/school-details';
 import { Component, OnInit } from '@angular/core';
 import { School } from './../../../dataModels/education/school';
@@ -11,11 +11,30 @@ import { SchoolService } from './../../../services/schools/school.service';
 export class SchoolsFavoritesPage implements OnInit {
   public schoolsFavoritesList: School[] = [];
 
-  constructor(private shoolsService: SchoolService,
-    public navCtrl: NavController) { }
+  constructor(
+    private shoolsService: SchoolService,
+    private loaderCtrl: LoadingController,
+    public navCtrl: NavController,
+    private viewCtrl: ViewController) { }
 
   ngOnInit() {
-    this.schoolsFavoritesList = this.shoolsService.getFavoritesList();
+    this.viewCtrl.setBackButtonText('חזרה');
+
+  }
+  ionViewWillEnter() {
+    const loader = this.loaderCtrl.create({
+      content: '....טוען מועדפים'
+    });
+    loader.present();
+
+    this.shoolsService.getFavoritesList()
+      .then((schools: School[]) => {
+        this.schoolsFavoritesList = schools;
+        loader.dismiss();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   public onSchoolSelect(school: School) {

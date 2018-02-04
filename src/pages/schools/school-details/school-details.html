@@ -6,7 +6,6 @@
 
 </ion-header>
 
-
 <ion-content padding>
   <ion-card text-right>
     <ion-card-header>
@@ -49,6 +48,19 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <div class="map-border">
+        <agm-map [latitude]="school.location.lat"
+                 [longitude]="school.location.lng"
+                 [zoom]="16">
+          <agm-marker [latitude]="school.location.lat"
+                      [longitude]="school.location.lng">
+            <agm-info-window>
+              <strong>{{school.type}} {{school.name}}</strong>
+            </agm-info-window>
+          </agm-marker>
+        </agm-map>
+      </div>
     </ion-card-content>
   </ion-card>
+
 </ion-content>

@@ -24,16 +24,18 @@ export class SchoolsListPage implements OnInit {
 
   ngOnInit() {
     let loader = this.loaderCtrl.create({
-      content: 'טוען נתונים....'
+      content: '....טוען מוסדות חינוך'
     });
     loader.present();
     this.authServise.getActiveUser().getIdToken()
       .then((token: string) => {
+
         this.schoolService.loadScolls(token)
           .subscribe((schools: School[]) => {
             this.schoolsList = schools;
             loader.dismiss();
-          })
+          });
+
       }, (error) => {
         console.log(error);
       });
@@ -49,6 +51,10 @@ export class SchoolsListPage implements OnInit {
     this.clearOnce = false;
     if (value && value.trim() != '') {
       this.schoolsList = this.schoolsList.filter((item: School) => {
+        if (item.name == undefined) {
+          console.log(item.id, item.type, item.location.lat);
+          return false;
+        }
         return item.name.includes(value.trim());
       });
     }
